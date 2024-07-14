@@ -19,6 +19,7 @@
 # misc
 .DS_Store
 *.pem
+/public/songs
 
 # debug
 npm-debug.log*

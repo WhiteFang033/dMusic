@@ -11,7 +11,7 @@ const authOptions = {
         CredentialsProvider({
             name: 'credentials',
             credentials: {
-                username: {label: "Email", type: "text"},
+                username: {label: "Username", type: "text"},
                 password: {label: "Password", type: "password"}
             },
             
@@ -52,28 +52,51 @@ const authOptions = {
 
     callbacks: {
         async session({ session, token, user }) {
-            let userData = null;
-            console.log(userName);
-            if(userName!=null){
-                const db = new pg.Client(connection);
-                await db.connect();
-                const userDataObject = await db.query("SELECT * FROM users WHERE username = $1", [userName]);
-                userData = userDataObject.rows[0];
-                console.log(userData);
-        }
+    
           // Send properties to the client, like an access_token and user id from a provider.
           session.accessToken = token.accessToken
           session.user.id = token.id
-          
-          if(userData !=null){
-            session.user.username = userData.username
-            session.user.fname = userData.first_name
-            session.user.lname = userData.last_name
-            session.user.rollNo = userData.roll_no
-          }
+          session.user.username = token.username
+          session.user.fname = token.fname
+          session.user.lname = token.lname
+          session.user.rollNo = token.roll_no
           
           return session
-        }
+        },
+
+        async jwt({ token, account, profile }) {
+            // Persist the OAuth access_token and or the user id to the token right after signin
+            if (account) {
+              token.accessToken = account.access_token
+            //   token.id = profile.id;
+
+                let userData = null;
+                
+                const db = new pg.Client(connection);
+
+                try{
+                    await db.connect();
+                    const userDataObject = await db.query("SELECT * FROM users WHERE username = $1", [userName]);
+                    userData = userDataObject.rows[0];
+                    console.log("userData: ", userData);
+                }
+                catch(err){
+                    console.log(err);
+                }
+                finally{
+                    db.end();
+                }
+                
+                if(userData !=null){
+                    token.username = userData.username
+                    token.fname = userData.first_name
+                    token.lname = userData.last_name
+                    token.rollNo = userData.roll_no
+                  }
+            }
+
+            return token
+          }
       }
 }
 

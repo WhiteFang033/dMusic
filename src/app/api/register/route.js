@@ -12,8 +12,7 @@ export async function POST(req){
         const hashedPassword = await hash(password, saltingRound);
 
         db.connect();
-
-        let usersLength = await db.query("SELECT COUNT(*) FROM users");
+        
         let usernameResult = await db.query("SELECT * FROM users WHERE username = $1", [username]);
         
         if(usernameResult.rows.length === 0){

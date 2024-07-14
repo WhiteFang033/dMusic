@@ -2,12 +2,13 @@ import Logo from "@/components/Logo";
 import PurpleButton from "@/components/PurpleButton";
 import CyanButton from "@/components/CyanButton";
 import Link from "next/link";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <div className="flex justify-center items-center flex-col w-[100%] h-[70vh]">
+    <div className="flex justify-center items-center flex-col w-[100%] h-[80vh] [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)]">
 
-      <div className="flex justify-around items-center flex-col w-[90%] h-[70%]">
+      <div className="flex justify-around items-center flex-col w-[90%] h-[70%] ">
 
         <Logo height={150} />
         <div className="text-5xl my-4 text-white font-bold ">DMusic</div>
@@ -28,6 +29,7 @@ export default function Home() {
           
         </div>
 
+        <Footer />
     </div>
   );
 }
