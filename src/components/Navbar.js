@@ -20,8 +20,6 @@ const Navbar = () => {
             {pathname === '/' && <Link href={"/register"} className='text-xl h-[50%]'> <PurpleButton content= {"Sign Up"} /></Link>}
         </ul>
         <div className='flex w-[20%] justify-evenly items-center'>
-        <Link href={'/home/proflie'}><div className='text-white text-lg'>Profile</div></Link>
-        <Link href={'/home/settings'}><div className='text-white text-lg'> Settings  </div></Link>
         </div>
     </nav>
   )

@@ -52,6 +52,28 @@ const Playlist = ({ name, setDashboardStatus, setSongArray}) => {
     setSongArray(songs);
   }
 
+  async function deletePlaylist(e){
+    let playlistName = name;
+    try {
+      const res = await fetch('api/playlist/delete', {
+        method: "POST",
+        body: JSON.stringify({
+          playlistName,
+          usernameCurrent
+        })
+      })
+  
+      if (res.ok) {
+        let response = await res.json();
+        setSongs(response.data);
+        setDashboardStatus(true)
+      }
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
+
 
 return (
   <div onLoad={async ()=>{await fetchPlaylistsSongs()}} className='flex flex-col w-[100%] h-[100%] bg-zinc-900 rounded-xl items-center justify-start'>
@@ -64,7 +86,7 @@ return (
       <div className="scrollbar flex flex-col h-[95%] w-[100%] bg-zinc-950 rounded-xl justify-start items-center py-2 overflow-auto">
       <div className="w-[100%] h-[15%] flex items-center justify-between px-14 mb-5">
           <button onClick={handleClick} className='relative top-5'><Image src={playSvg} height={70} alt='play playlist songs'></Image></button>
-          <button className='flex text-white w-[180px] h-[50px] border-2 border-red-600 rounded-xl items-center justify-evenly hover:bg-red-700 transition-all delay-75'><Image src={deleteSvg} height={30} alt='delete playlist'></Image>Delete Playlist</button>
+          <button onClick={deletePlaylist} className='flex text-white w-[180px] h-[50px] border-2 border-red-600 rounded-xl items-center justify-evenly hover:bg-red-700 transition-all delay-75'><Image src={deleteSvg} height={30} alt='delete playlist'></Image>Delete Playlist</button>
         </div>
       {songs.map((song, index)=>{
             return <PlaylistItem key={index} index = {index+1} title={song.name} artist={song.artist} songSource={song.src} setSongArray = {setSongArray} playlistName ={song.playlist_name} fetchPlaylistsSongs ={fetchPlaylistsSongs}/>

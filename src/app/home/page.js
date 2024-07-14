@@ -36,7 +36,7 @@ const page = () => {
       <div className='min-h-[75vh] w-[100vw] flex items-center justify-between bg-black'>
           {/* Left Side Bar */}
           <div className="flex h-[75vh] w-[20vw] bg-zinc-900 rounded-e-xl">
-            <Library setDashboardStatus={setDashboardStatus} setPlaylistName = {setPlaylistName} username={username}/>
+            <Library dashboardStatus={dashbardStatus} setDashboardStatus={setDashboardStatus} setPlaylistName = {setPlaylistName} username={username}/>
           </div>
 
           {/* Main Dashboard */}

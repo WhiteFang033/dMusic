@@ -11,14 +11,19 @@ const CreatePlaylist = ({setCreateMenu, setAddedPlaylist, username}) => {
 
     async function handleSubmit(e){
         e.preventDefault();
-        let formData = new FormData();
+        // let formData = new FormData();
+        // if(img.files[0] !== undefined && img.files[0] !== 0){
+        //     formData.append('thumbnail', img.files[0]);
+        // }
+        // else{
+        //     formData.append(null);
+        // }
+        // if(playlistName === ''){
+        //     setBorderColor('red');
+        //     inputRef.current.style.borderColor = borderColor
+        //     return
+        // }
 
-        if(playlistName === ''){
-            setBorderColor('red');
-            inputRef.current.style.borderColor = borderColor
-            return
-        }
-        console.log('yes')
         let usernameCurrent = username;
         try{
             console.log(usernameCurrent);
@@ -26,8 +31,9 @@ const CreatePlaylist = ({setCreateMenu, setAddedPlaylist, username}) => {
                 method: "POST",
                 body: JSON.stringify({
                     playlistName,
-                    usernameCurrent
-                })
+                    usernameCurrent,
+                }),
+                // formData
             })
     
             if(res.ok){
@@ -51,7 +57,7 @@ const CreatePlaylist = ({setCreateMenu, setAddedPlaylist, username}) => {
             <h3 className='text-white text-lg text-bold w-[60%] h-[100%] flex items-center justify-center'>Create Playlist</h3>
             <div className='w-[20%] h-[100%]'></div>
         </div>
-        <form className='flex flex-col items-center justify-start w-[100%] h-[85%]' action="">
+        <form className='flex flex-col items-center justify-start w-[100%] h-[85%]' action=""  encType= "multipart/form-data">
 
         <div className= "h-[150px] w-[150px] bg-zinc-900 rounded-xl flex justify-center items-center">
             <h2 className='relative left-10 text-white text-md font-medium'>Upload Thumbnail</h2>

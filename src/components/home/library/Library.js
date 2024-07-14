@@ -7,7 +7,7 @@ import addSvg from "@/../public/svg/add.svg"
 import CreatePlaylist from './CreatePlaylist'
 import { useSession } from 'next-auth/react'
 import Loading from '@/components/utilities/Loading'
-const Library = ({setDashboardStatus, setPlaylistName, username}) => {
+const Library = ({dashboardStatus, setDashboardStatus, setPlaylistName, username}) => {
 
   const [createMenu, setCreateMenu] = useState(false);
   const [playlists, setPlaylists] = useState([])
@@ -24,7 +24,7 @@ const Library = ({setDashboardStatus, setPlaylistName, username}) => {
     if(addedPlaylist === true){
       setAddedPlaylist(false)
     }
-  }, [session, addedPlaylist]);
+  }, [session, addedPlaylist, dashboardStatus]);
 
   if (status === 'loading') {
     return <Loading />;
