@@ -11,29 +11,31 @@ const CreatePlaylist = ({setCreateMenu, setAddedPlaylist, username}) => {
 
     async function handleSubmit(e){
         e.preventDefault();
-        // let formData = new FormData();
-        // if(img.files[0] !== undefined && img.files[0] !== 0){
-        //     formData.append('thumbnail', img.files[0]);
-        // }
-        // else{
-        //     formData.append(null);
-        // }
-        // if(playlistName === ''){
-        //     setBorderColor('red');
-        //     inputRef.current.style.borderColor = borderColor
-        //     return
-        // }
 
-        let usernameCurrent = username;
+        let formData = new FormData();
+        if(img.files[0] !== undefined){
+            console.log(img.files[0]);
+            formData.append('thumbnail', img.files[0]);
+        }
+
+
+        console.log(formData);  
+        if(playlistName === ''){
+            setBorderColor('red');
+            inputRef.current.style.borderColor = borderColor
+            return
+        }
+
+        const jsonObj = { playlistName: playlistName,
+            usernameCurrent: username
+        }
+
+        formData.append('json', JSON.stringify(jsonObj));
+
         try{
-            console.log(usernameCurrent);
             const res = await fetch('api/playlist/create', {
                 method: "POST",
-                body: JSON.stringify({
-                    playlistName,
-                    usernameCurrent,
-                }),
-                // formData
+                body: formData
             })
     
             if(res.ok){
@@ -51,17 +53,16 @@ const CreatePlaylist = ({setCreateMenu, setAddedPlaylist, username}) => {
 
 
   return (
-    <div ref={formRef} onSubmit={handleSubmit} className="flex flex-col h-[82%] w-[90%] bg-zinc-950 rounded-xl items-center justify-start">
+    <div ref={formRef} className="flex flex-col h-[82%] w-[90%] bg-zinc-950 rounded-xl items-center justify-start">
         <div className="flex w-[100%] h-[13%] items-center justify-between px-5">
             <button className='w-[20%] h-[100%]' onClick={()=>{setCreateMenu(false)}}><Image src={returnSvg} height={30} alt='go back'></Image></button>
             <h3 className='text-white text-lg text-bold w-[60%] h-[100%] flex items-center justify-center'>Create Playlist</h3>
             <div className='w-[20%] h-[100%]'></div>
         </div>
-        <form className='flex flex-col items-center justify-start w-[100%] h-[85%]' action=""  encType= "multipart/form-data">
+        <form onSubmit={handleSubmit} className='flex flex-col items-center justify-start w-[100%] h-[85%]' encType='multipart/form-data'>
 
         <div className= "h-[150px] w-[150px] bg-zinc-900 rounded-xl flex justify-center items-center">
-            <h2 className='relative left-10 text-white text-md font-medium'>Upload Thumbnail</h2>
-        <input className='h-[150px] w-[150px] bg-zinc-900 opacity-0 cursor-pointer' type="file" id="img" name="img" accept="image/*" /> 
+        <input className='h-[150px] w-[150px] bg-zinc-900 opacity-0 cursor-pointer' type="file" id="img" name="thumbnail" accept="image/*" /> 
         </div>
         <input  ref={inputRef}  onChange={(e)=>{
                 setBorderColor("#9502f7")

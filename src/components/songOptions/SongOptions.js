@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import DotMenuSvg from '@/../public/svg/dot_menu.svg'
@@ -8,7 +8,7 @@ const SongOptions = ({songTitle, songArtist}) => {
     const [playlists, setPlaylists] = useState([]);
     const {data: session, status} = useSession();
     const [usernameCurrent, setUsernameCurrent] = useState();
-
+    const optionsRef = useRef();
     useEffect(() => {
         if (session?.user?.username) {
           setUsernameCurrent(session.user.username);
@@ -79,7 +79,7 @@ const SongOptions = ({songTitle, songArtist}) => {
         }
     })
   return (
-    <div className='options'>
+    <div className='relative options z-10'>
         {optionsHidden?
             <button onClick={()=>{setOptionsHidden(false)}}><Image className='options' src={DotMenuSvg} height={15} alt='options'></Image></button>
         :

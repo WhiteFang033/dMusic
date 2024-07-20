@@ -63,9 +63,9 @@ const Library = ({dashboardStatus, setDashboardStatus, setPlaylistName, username
         <button onClick={()=>{setCreateMenu(true)}}><Image src={addSvg} height={20} alt="create playlist" /></button>
       </div>
       <div className="flex flex-col h-[90%] w-[100%] bg-zinc-950 rounded-xl justify-start items-center py-2 overflow-x-auto">
-        <PlaylistPlate name={'Liked Songs'}  setDashboardStatus={setDashboardStatus} setPlaylistName={setPlaylistName}/>
+        <PlaylistPlate name={'Liked Songs'}  setDashboardStatus={setDashboardStatus} setPlaylistName={setPlaylistName} thumbnail = {'heart.svg'}/>
         {playlists.map((playlist, index)=>{
-          return <PlaylistPlate key={index} name={playlist.playlist_name} setDashboardStatus={setDashboardStatus} setPlaylistName={setPlaylistName}/>
+          return <PlaylistPlate key={index} name={playlist.playlist_name} setDashboardStatus={setDashboardStatus} setPlaylistName={setPlaylistName} thumbnail ={playlist.thumbnail}/>
         })}
       </div>
       </div>

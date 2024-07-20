@@ -11,10 +11,10 @@ export default function Home() {
       <div className="flex justify-around items-center flex-col w-[90%] h-[70%] ">
 
         <Logo height={150} />
-        <div className="text-5xl my-4 text-white font-bold ">DMusic</div>
+        <div className="text-5xl my-4 text-white font-bold ">dTunes</div>
 
         <p className="text-white text-2xl text-center w-[70%]">
-          Welcome to DMusic, your go-to platform for high-quality music streaming. Discover, create, and enjoy a world of music anytime, anywhere!
+          Welcome to dTunes, your go-to platform for high-quality music streaming. Discover, create, and enjoy a world of music anytime, anywhere!
           </p>
       </div>
 
